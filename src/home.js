@@ -32,14 +32,27 @@ class Home extends Component {
     }
 
     onChange = (event) => {
-        if (event.length > 2) {
+        console.log(event.length)
+        if (event.length > 1) {
+            console.log('1st if')
             this.setState({
                 ...this.state,
                 search: event
             })
+        } 
+        if(event.length < 1){
+            console.log('2st if')
+
+            this.setState({
+                ...this.state,
+                search:'',
+                data:[],
+                showSuggestion:false    
+            })
         }
 
-        if (this.state.search.length > 2) {
+        if (this.state.search.length > 2
+            ) {
             axios.get(`${config.baseUrl}/search/?name=${this.state.search}`)
                 .then(res => {
                     console.log(res.data.data)
@@ -56,6 +69,7 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.state.suggestions)
         return (
             <Fragment>
                   <Layout>
@@ -87,7 +101,7 @@ class Home extends Component {
                     <Layout>
                         <Footer>
                             <div style={{display:'flex',justifyContent:'center'}}>
-                                <div>The Battle was won by {this.state.data[0].attacker_outcome === 'win' ? this.state.data[0].attacker_king : this.state.data[0].defender_king}</div>
+                                <div>The Battle was won by {this.state.data[0].attacker_outcome && this.state.data[0].attacker_outcome === 'win' ? this.state.data[0].attacker_king : this.state.data[0].defender_king}</div>
                                 <div>The Battle was held at  {this.state.data[0].location} in year {this.state.data[0].year}</div>
                                 <div>The Battle region was  {this.state.data[0].region}</div>
                                 <div>The Battle type was {this.state.data[0].battle_type}</div>
