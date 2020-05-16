@@ -31,18 +31,25 @@ class Home extends Component {
             .catch(err => console.log(err))
     }
 
+    debounce (func, wait) {
+        let timeout
+        return function() {
+          const context = this
+          const args = arguments
+          clearTimeout(timeout)
+          timeout = setTimeout(() => func.apply(context, args), wait)
+        }
+    }
+
+
     onChange = (event) => {
-        console.log(event.length)
         if (event.length > 1) {
-            console.log('1st if')
             this.setState({
                 ...this.state,
                 search: event
             })
         } 
         if(event.length < 1){
-            console.log('2st if')
-
             this.setState({
                 ...this.state,
                 search:'',
@@ -51,12 +58,15 @@ class Home extends Component {
             })
         }
 
-        if (this.state.search.length > 2
-            ) {
-            axios.get(`${config.baseUrl}/search/?name=${this.state.search}`)
-                .then(res => {
-                    console.log(res.data.data)
+        if (this.state.search.length > 2) {
+            let callApi = this.debounce(this.fetchQueryData, 1000) 
+            callApi()
+        }
+    }
 
+    fetchQueryData = () => {
+        axios.get(`${config.baseUrl}/search/?name=${this.state.search}`)
+                .then(res => {
                     this.setState({
                         ...this.state,
                         suggestions: res.data.data,
@@ -65,8 +75,8 @@ class Home extends Component {
 
                 })
                 .catch(err => console.log(err))
-        }
     }
+
     clear = () =>{
         this.setState({
             ...this.state,
@@ -79,7 +89,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log(this.state.suggestions)
         return (
             <Fragment>
                   <Layout>
@@ -111,12 +120,12 @@ class Home extends Component {
                          <Content style={{'height':'100%'}}><BattleDetails details = {this.state.data}/></Content>
                     </Layout>
                     <Layout>
-                        <Footer>
-                            <div style={{display:'flex',justifyContent:'center'}}>
-                                <div>The Battle was won by {this.state.data[0].attacker_outcome && this.state.data[0].attacker_outcome === 'win' ? this.state.data[0].attacker_king : this.state.data[0].defender_king}</div>
-                                <div>The Battle was held at  {this.state.data[0].location} in year {this.state.data[0].year}</div>
-                                <div>The Battle region was  {this.state.data[0].region}</div>
-                                <div>The Battle type was {this.state.data[0].battle_type}</div>
+                        <Footer style={{display:'flex',justifyContent:'center'}}>
+                            <div style={{flexFlow:'row',justifyContent:'center'}}>
+                                <div style={{display:'inline'}}>The Battle was won by <em style={{fontWeight:'bold'}}>{this.state.data[0].attacker_outcome && this.state.data[0].attacker_outcome === 'win' ? this.state.data[0].attacker_king : this.state.data[0].defender_king}</em></div>
+                                <div>The Battle was held at <em style={{fontWeight:'bold'}}> {this.state.data[0].location}</em> in year <em style={{fontWeight:'bold'}}>{this.state.data[0].year}</em></div>
+                                <div>The Battle region was  <em style={{fontWeight:'bold'}}>{this.state.data[0].region}</em></div>
+                                <div>The Battle type was <em style={{fontWeight:'bold'}}>{this.state.data[0].battle_type}</em></div>
                             </div>
                         </Footer>
                     </Layout>
