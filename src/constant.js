@@ -1,5 +1,6 @@
 const config = {
-    baseUrl : 'https://battle-got-service.herokuapp.com'
+    baseUrl : 'http://localhost:5000'
+    //http://localhost:5000
 }
 
 

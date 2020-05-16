@@ -67,17 +67,27 @@ class Home extends Component {
                 .catch(err => console.log(err))
         }
     }
+    clear = () =>{
+        this.setState({
+            ...this.state,
+            search:'',
+            suggestions:[],
+            data:[],
+            showSuggestion:false    
+
+        })
+    }
 
     render() {
         console.log(this.state.suggestions)
         return (
             <Fragment>
                   <Layout>
-                    <Header>
+                    <Header style={{'display':'inline'}}>
                         
                         <AutoComplete 
                             style={{
-                            'width': '100%'
+                            'width': '90%'
                             }}
                             onSelect = {this.showDetails}
                             onChange={this.onChange}
@@ -91,10 +101,11 @@ class Home extends Component {
                                 ))}
 
                         </AutoComplete>
+                        <Button onClick={this.clear}>Clear </Button>
                     </Header>
                     </Layout>
-                    {this.state.showData && 
-                    <div>
+                    {this.state.data.length  
+                    ? <div>
 
                     <Layout>
                          <Content style={{'height':'100%'}}><BattleDetails details = {this.state.data}/></Content>
@@ -109,7 +120,7 @@ class Home extends Component {
                             </div>
                         </Footer>
                     </Layout>
-                    </div>}
+                    </div> : ""}
             </Fragment>
         )
     }
