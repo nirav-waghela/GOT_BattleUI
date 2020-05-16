@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import config from './constant'
 import BattleDetails from './battleDetails'
-import { AutoComplete ,Layout } from 'antd';
+import { AutoComplete ,Layout ,Button} from 'antd';
 
 const { Header, Content, Footer } = Layout;
 
@@ -74,6 +74,7 @@ class Home extends Component {
             <Fragment>
                   <Layout>
                     <Header>
+                        
                         <AutoComplete 
                             style={{
                             'width': '100%'
