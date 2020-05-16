@@ -92,7 +92,7 @@ class Home extends Component {
         return (
             <Fragment>
                   <Layout>
-                    <Header style={{'display':'inline'}}>
+                    <Header style={{'display':'inline', 'whiteSpace':'nowrap'}}>
                         
                         <AutoComplete 
                             style={{

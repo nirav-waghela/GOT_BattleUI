@@ -39,10 +39,10 @@ const BattleDetails = (props) => {
                             <div>Defender King : </div>
                             <div>{data.defender_king} </div>
                         </div>
-                        <div className='container'>
+                        {data.defender_commander ? <div className='container'>
                             <div>Defender Commander : </div>
                             <div>{data.defender_commander}</div>
-                        </div >
+                        </div > : " No Defender's commander"}
                         <div className='container'>
                             <div>The Defenders were :</div>
                             {data.defender_1.length ? <div>{data.defender_1}</div> : ""}
