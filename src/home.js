@@ -14,7 +14,9 @@ class Home extends Component {
         suggestions: [],
         showSuggestion: false,
         data: [],
-        showData: false
+        showData: false,
+        showResult:false
+
     }
 
     showDetails = (name) => {
@@ -83,12 +85,19 @@ class Home extends Component {
             search:'',
             suggestions:[],
             data:[],
-            showSuggestion:false    
+            showSuggestion:false,
+            showResult:false
+        })
+    }
+
+    onFight = () => {
+        this.setState({
+            ...this.state,
+            showResult:true
         })
     }
 
     render() {
-        console.log('afete cleae')
         return (
             <Fragment>
                   <Layout>
@@ -120,6 +129,9 @@ class Home extends Component {
                     <Layout>
                          <Content style={{'height':'100%'}}><BattleDetails details = {this.state.data}/></Content>
                     </Layout>
+                    {this.state.showResult ? "" :
+                    <Button type="primary" shape='round' onClick={this.onFight} style={{left:'48%'}}>Fight</Button>}
+                    {this.state.showResult && 
                     <Layout>
                         <Footer className="footer" style={{display:'flex',justifyContent:'center'}}>
                             <div style={{flexFlow:'row',justifyContent:'center'}}>
@@ -129,7 +141,7 @@ class Home extends Component {
                                 <div>The Battle type was <em style={{fontWeight:'bold'}}>{this.state.data[0].battle_type}</em></div>
                             </div>
                         </Footer>
-                    </Layout>
+                    </Layout>}
                     </div> : ""}
             </Fragment>
         )

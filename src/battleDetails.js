@@ -1,19 +1,21 @@
 import React from 'react'
 import { Card, Col, Row } from 'antd';
 
+
 const BattleDetails = (props) => {
+
     const data = props.details[0]
     return (
         <div className="site-card-wrapper">
             <Row gutter={16}>
-                <Col span={12}>
+                <Col sm={{ span: 24 }} lg={{ span: 12 }} md={{ span: 12 }} xs={{ span: 24 }}>
                     <Card title={data.name} bordered={true}>
                         <div>
                             {data.attacker_king ?
-                            <div className='container'>
-                                <div>Attacker King :</div>
-                                <div>{data.attacker_king}</div>
-                            </div> : ''}
+                                <div className='container'>
+                                    <div>Attacker King :</div>
+                                    <div>{data.attacker_king}</div>
+                                </div> : ''}
                             {data.attacker_commander ?
                                 <div className='container'>
                                     <div>Attacker Commander : </div>
@@ -34,14 +36,14 @@ const BattleDetails = (props) => {
                         </div>
                     </Card>
                 </Col>
-                <Col span={12}>
+                <Col sm={{ span: 24 }} lg={{ span: 12 }} md={{ span: 12 }} xs={{ span: 24 }} >
                     <Card title={data.name} bordered={false}>
                         <div>
-                            {data.defender_king ? 
-                            <div className='container'>
-                                <div>Defender King : </div>
-                                <div>{data.defender_king} </div>
-                            </div> : '' }
+                            {data.defender_king ?
+                                <div className='container'>
+                                    <div>Defender King : </div>
+                                    <div>{data.defender_king} </div>
+                                </div> : ''}
                             {data.defender_commander ? <div className='container'>
                                 <div>Defender Commander : </div>
                                 <div>{data.defender_commander}</div>
@@ -53,11 +55,11 @@ const BattleDetails = (props) => {
                                 {data.defender_3.length ? <div>{data.defender_3}</div> : ""}
                                 {data.defender_4.length ? <div>{data.defender_4}</div> : ""}
                             </div>
-                            {data.defender_size ? 
-                            <div className='container'>
-                                <div>The Defenders size :</div>
-                                <div>{data.defender_size}</div>
-                            </div> : '' }
+                            {data.defender_size ?
+                                <div className='container'>
+                                    <div>The Defenders size :</div>
+                                    <div>{data.defender_size}</div>
+                                </div> : ''}
                         </div>
                     </Card>
                 </Col>
