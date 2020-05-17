@@ -84,11 +84,11 @@ class Home extends Component {
             suggestions:[],
             data:[],
             showSuggestion:false    
-
         })
     }
 
     render() {
+        console.log('afete cleae')
         return (
             <Fragment>
                   <Layout>
@@ -110,7 +110,8 @@ class Home extends Component {
                                 ))}
 
                         </AutoComplete>
-                        <Button onClick={this.clear}>Clear </Button>
+                        {this.state.showSuggestion ? 
+                        <Button onClick={this.clear}>Clear</Button> : ""}
                     </Header>
                     </Layout>
                     {this.state.data.length  
@@ -120,7 +121,7 @@ class Home extends Component {
                          <Content style={{'height':'100%'}}><BattleDetails details = {this.state.data}/></Content>
                     </Layout>
                     <Layout>
-                        <Footer style={{display:'flex',justifyContent:'center'}}>
+                        <Footer className="footer" style={{display:'flex',justifyContent:'center'}}>
                             <div style={{flexFlow:'row',justifyContent:'center'}}>
                                 <div style={{display:'inline'}}>The Battle was won by <em style={{fontWeight:'bold'}}>{this.state.data[0].attacker_outcome && this.state.data[0].attacker_outcome === 'win' ? this.state.data[0].attacker_king : this.state.data[0].defender_king}</em></div>
                                 <div>The Battle was held at <em style={{fontWeight:'bold'}}> {this.state.data[0].location}</em> in year <em style={{fontWeight:'bold'}}>{this.state.data[0].year}</em></div>
